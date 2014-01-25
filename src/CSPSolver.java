@@ -81,6 +81,7 @@ public class CSPSolver {
 //		golomb(m);
 //	}
 
+	// eight queens  problem and solution 
 	static void queens(int n) {
 		Network net = new Network();
 		IntVariable[] q = new IntVariable[n];
