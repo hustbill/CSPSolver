@@ -22,78 +22,78 @@ public class CSPSolver {
 		public static void main(String[] args) {
 			Network net = new Network();
 			IntVariable a1 = new IntVariable(net, 1, nodes, "a1");
-			IntVariable green = new IntVariable(net, 1, nodes, "green");
-			IntVariable ivory = new IntVariable(net, 1, nodes, "ivory");
-			IntVariable yellow = new IntVariable(net, 1, nodes, "yellow");
-			IntVariable blue = new IntVariable(net, 1, nodes, "blue");
+			IntVariable a2 = new IntVariable(net, 1, nodes, "a2");
+			IntVariable a3 = new IntVariable(net, 1, nodes, "a3");
+			IntVariable a4 = new IntVariable(net, 1, nodes, "a4");
+			IntVariable a5 = new IntVariable(net, 1, nodes, "a5");
 			IntVariable[] color = {
 					a1, a2, a3, a4, a5
 			};
-			IntVariable englishman = new IntVariable(net, 1, nodes, "Englishman");
-			IntVariable spaniard = new IntVariable(net, 1, nodes, "Spaniard");
-			IntVariable ukrainian = new IntVariable(net, 1, nodes, "Ukrainian");
-			IntVariable norwegian = new IntVariable(net, 1, nodes, "Norwegian");
-			IntVariable japanese = new IntVariable(net, 1, nodes, "Japanese");
+			IntVariable b1 = new IntVariable(net, 1, nodes, "b1");
+			IntVariable b2 = new IntVariable(net, 1, nodes, "b2");
+			IntVariable b3 = new IntVariable(net, 1, nodes, "b3");
+			IntVariable b4 = new IntVariable(net, 1, nodes, "b4");
+			IntVariable b5 = new IntVariable(net, 1, nodes, "b5");
 			IntVariable[] nationality = {
-					englishman, spaniard, ukrainian, norwegian, japanese
+					b1, b2, b3, b4, b5
 			};
-			IntVariable coffee = new IntVariable(net, 1, nodes, "coffee");
-			IntVariable tea = new IntVariable(net, 1, nodes, "tea");
-			IntVariable milk = new IntVariable(net, 1, nodes, "milk");
-			IntVariable orangeJuice = new IntVariable(net, 1, nodes, "orange juice");
-			IntVariable water = new IntVariable(net, 1, nodes, "water");
+			IntVariable c1 = new IntVariable(net, 1, nodes, "c1");
+			IntVariable c2 = new IntVariable(net, 1, nodes, "c2");
+			IntVariable c3 = new IntVariable(net, 1, nodes, "c3");
+			IntVariable c4 = new IntVariable(net, 1, nodes, "c4");
+			IntVariable c5 = new IntVariable(net, 1, nodes, "c5");
 			IntVariable[] drink = {
-					coffee, tea, milk, orangeJuice, water
+					c1, c2, c3, c4, c5
 			};
-			IntVariable oldGold = new IntVariable(net, 1, nodes, "Old Gold");
-			IntVariable kools = new IntVariable(net, 1, nodes, "Kools");
-			IntVariable chesterfields = new IntVariable(net, 1, nodes, "Chesterfields");
-			IntVariable luckyStrike = new IntVariable(net, 1, nodes, "Lucky Strike");
-			IntVariable parliaments = new IntVariable(net, 1, nodes, "Parliaments");
+			IntVariable d1 = new IntVariable(net, 1, nodes, "d1");
+			IntVariable d2 = new IntVariable(net, 1, nodes, "d2");
+			IntVariable d3 = new IntVariable(net, 1, nodes, "d3");
+			IntVariable d4 = new IntVariable(net, 1, nodes, "d4");
+			IntVariable d5 = new IntVariable(net, 1, nodes, "d5");
 			IntVariable[] smoke = {
-					oldGold, kools, chesterfields, luckyStrike, parliaments
+					d1, d2, d3, d4, d5
 			};
-			IntVariable dog = new IntVariable(net, 1, nodes, "dog");
-			IntVariable snails = new IntVariable(net, 1, nodes, "snails");
-			IntVariable fox = new IntVariable(net, 1, nodes, "fox");
-			IntVariable horse = new IntVariable(net, 1, nodes, "horse");
-			IntVariable zebra = new IntVariable(net, 1, nodes, "zebra");
+			IntVariable e1 = new IntVariable(net, 1, nodes, "e1");
+			IntVariable e2 = new IntVariable(net, 1, nodes, "e2");
+			IntVariable e3 = new IntVariable(net, 1, nodes, "e3");
+			IntVariable e4 = new IntVariable(net, 1, nodes, "e4");
+			IntVariable e5 = new IntVariable(net, 1, nodes, "e5");
 			IntVariable[] pet = {
-					dog, snails, fox, horse, zebra 
+					e1, e2, e3, e4, e5 
 			};
 			new NotEquals(net, color);
 			new NotEquals(net, nationality);
 			new NotEquals(net, drink);
 			new NotEquals(net, smoke);
 			new NotEquals(net, pet);
-			// The Englishman lives in the a1 node.
-			englishman.equals(a1);
-			// The Spaniard owns the dog.
-			spaniard.equals(dog);
-			// Coffee is drunk in the green node.
-			coffee.equals(green);
-			// The Ukrainian drinks tea.
-			ukrainian.equals(tea);
-			// The green node is immediately to the right of the ivory node.
-			rightOf(green, ivory);
-			// The Old Gold smoker owns snails.
-			oldGold.equals(snails);
-			// Kools are smoked in the yellow node.
-			kools.equals(yellow);
-			// Milk is drunk in the middle node.
-			milk.equals(3);
-			// The Norwegian lives in the first node.
-			norwegian.equals(1);
-			// The man who smokes Chesterfields lives in the node next to the man with the fox.
-			nextTo(chesterfields, fox);
-			// Kools are smoked in the node next to the node where the horse is kept.
-			nextTo(kools, horse);
-			// The Lucky Strike smoker drinks orange juice.
-			luckyStrike.equals(orangeJuice);
-			// The Japanese smokes Parliaments.
-			japanese.equals(parliaments);
-			// The Norwegian lives next to the blue node.
-			//nextTo(norwegian, blue);
+			// The b1 lives in the a1 node.
+			b1.equals(a1);
+			// The b2 owns the e1.
+			b2.equals(e1);
+			// c1 is drunk in the a2 node.
+			c1.equals(a2);
+			// The b3 drinks c2.
+			b3.equals(c2);
+			// The a2 node is immediately to the right of the a3 node.
+			rightOf(a2, a3);
+			// The d1 smoker owns e2.
+			d1.equals(e2);
+			// d2 are smoked in the a4 node.
+			d2.equals(a4);
+			// c3 is drunk in the middle node.
+			c3.equals(3);
+			// The b4 lives in the first node.
+			b4.equals(1);
+			// The man who smokes d3 lives in the node next to the man with the e3.
+			nextTo(d3, e3);
+			// d2 are smoked in the node next to the node where the e4 is kept.
+			nextTo(d2, e4);
+			// The d4 smoker drinks c4.
+			d4.equals(c4);
+			// The b5 smokes d5.
+			b5.equals(d5);
+			// The b4 lives next to the a5 node.
+			//nextTo(b4, a5);
 	
 			Solver solver = new DefaultSolver(net);
 			int count = 0;
