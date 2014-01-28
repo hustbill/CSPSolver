@@ -1,0 +1,21 @@
+#COMMNADS
+
+  $git config --global user.name"你的用户名"    注：可以不是你帐号 
+
+  $git config --global user.email"你的email"    注：注册的帐号
+
+  $cd Hello-Android 注：创建的工程目录
+
+  $git init 
+
+  $git add . 
+ 
+  $touch README
+
+  $git add README
+
+  $git commit -m 'first commit'  
+
+  $git remote add origin https://github.com/hustbill/CSPSolver 
+
+ $git push –u origin master
