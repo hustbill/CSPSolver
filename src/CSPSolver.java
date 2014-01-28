@@ -1,3 +1,4 @@
+//This is the client program for CSPSolver
 
 public class CSPSolver {
 	static int nodes = 5;
