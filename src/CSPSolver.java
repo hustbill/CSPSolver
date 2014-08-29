@@ -50,32 +50,31 @@ public class CSPSolver {
 			System.out.println();
 		}
 
-		public static HashMap<Integer, Integer> drawPairs(int n, int max_constraints) {
+		public static HashMap<Integer, Integer> generateConstraints(int actors, int constraints) {
 			HashMap<Integer, Integer> constraints_map = new HashMap<Integer, Integer>();
 			ArrayList<Integer> list = new ArrayList<Integer>();
-			for(int i=0; i< n; i++) 
-				list.add(i);
+			for(int i=0; i< actors; i++) 
+				list.add(i);			// store actors into ArrayList
 			Random rand = new Random();
-			int actor1 , actor2, count=0;
-			while(list.size()> 0 && count< max_constraints) {
+			int actor1 , actor2;
+			while(list.size()> 0 &&  constraints >0) {
 				actor1 = rand.nextInt(list.size());
-				list.remove(actor1);
-				actor2 = rand.nextInt(list.size());
-				constraints_map.put(actor1, actor2);
-				count++;
+				list.remove(actor1);         // select one actor 
+				actor2 = rand.nextInt(list.size());    //select second actor
+				constraints_map.put(actor1, actor2);    // create a constraint < actor1 , actor2 >
+				constraints--;
 			}
 			System.out.println(constraints_map.size());
-			//System.out.println(constraints_map);
 			return constraints_map;
 		}
 		
 		public static void main(String[] args) {
 			Network net = new Network();	
-			int nodeNum = 100;		
+			int nodeNum = 70;		
 			// call drawPairs
 			int n = 300;   // actor number
-			int max_constraints =80;    // constraints number
-			HashMap<Integer, Integer> map= drawPairs(n, max_constraints);
+			int max_constraints =100;    // constraints number
+			HashMap<Integer, Integer> map= generateConstraints(n, max_constraints);
 			int NUMBER = 100;  // the number of actors
 			int count =0;
 			 IntVariable[] key = new IntVariable[map.size()];;
@@ -106,7 +105,7 @@ public class CSPSolver {
 			Network net = new Network();		
 			int n = 100;   // actor number
 			int max_constraints =50;    // constraints number
-			HashMap<Integer, Integer> map= drawPairs(n, max_constraints);
+			HashMap<Integer, Integer> map= generateConstraints(n, max_constraints);
 			
 			IntVariable[] key = new IntVariable[map.size()];
 			for(Map.Entry<Integer, Integer> entry : map.entrySet()){
