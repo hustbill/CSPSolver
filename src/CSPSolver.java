@@ -58,17 +58,19 @@ public class CSPSolver {
 			Random rand = new Random();
 			int actor1 , actor2;
 			while(list.size()> 0 &&  constraints >0) {
+				//System.out.println("list.size()" + list.size());
 				actor1 = rand.nextInt(list.size());
 				list.remove(actor1);         // select one actor 
 				actor2 = rand.nextInt(list.size());    //select second actor
 				constraints_map.put(actor1, actor2);    // create a constraint < actor1 , actor2 >
 				constraints--;
+				//System.out.println(constraints);
 			}
 			System.out.println(constraints_map.size());
 			return constraints_map;
 		}
 		
-		public static void main(String[] args) {
+		public static void main26(String[] args) {
 			Network net = new Network();	
 			int nodeNum = 70;		
 			// call drawPairs
@@ -97,11 +99,12 @@ public class CSPSolver {
 			}
 			//Separate Constraint List
 			//Collocate constraints list.
+			System.out.println("k= " + k);		
 			System.out.println("Constraints Number= " + count);		
 			runExample(net); //output the result.
 		}
 		
-		public static void main23(String[] args) {
+		public static void main11(String[] args) {
 			Network net = new Network();		
 			int n = 100;   // actor number
 			int max_constraints =50;    // constraints number
@@ -110,8 +113,6 @@ public class CSPSolver {
 			IntVariable[] key = new IntVariable[map.size()];
 			for(Map.Entry<Integer, Integer> entry : map.entrySet()){
 			    System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
-			   
-			    
 			}
 			IntVariable a1 = new IntVariable(net, 1, nodes, "a1");
 			IntVariable a2 = new IntVariable(net, 1, nodes, "a2");
@@ -223,7 +224,7 @@ public class CSPSolver {
 		}
 		
 		
-		public static void main11(String[] args) {
+		public static void main(String[] args) {
 			Network net = new Network();	
 			int nodeNum = 55;		
 			int NUMBER = 100;  // the number of actors
@@ -234,10 +235,7 @@ public class CSPSolver {
 				actorVarArr[i] = new IntVariable(net, 1, nodeNum, actorList[i]);
 			   net.add(actorVarArr[i]);
 			}
-			
-			
-			
-			
+				
 			int count =0;
 			int countOfConstraints =0;
 			//Separate Constraint List
@@ -251,7 +249,8 @@ public class CSPSolver {
 			//Collocate constraints list.
 			for(int i=20 ;i < 50; i++) {
 				for(int j=i+1 ; j < 50; j++) {				
-					new NotEquals(net,actorVarArr[i], actorVarArr[j] );
+					//new NotEquals(net,actorVarArr[i], actorVarArr[j] );
+					actorVarArr[i].equals(actorVarArr[j]); 
 					countOfConstraints++;
 				}
 			}
