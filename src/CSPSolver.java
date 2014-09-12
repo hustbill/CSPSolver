@@ -106,12 +106,16 @@ public class CSPSolver {
 			}
 			
 			Variable actor1 , actor2, actor3, actor4;
+			Integer actor1_num, actor2_num, actor3_num, actor4_num;
+			
 			Random rand = new Random();
 			int sepConstraints_num = constraints_num;
 			while( sepConstraints_num >0) {
-					actor1 =actorVarArr[ rand.nextInt(list.size())]; // select one actor 				       
-					actor2 = actorVarArr[rand.nextInt(list.size())];    //select second actor
-					if (actor1 != actor2)
+					actor1_num = rand.nextInt(list.size());
+					actor2_num = rand.nextInt(list.size());
+					actor1 = actorVarArr[actor1_num]; // select one actor 				       
+					actor2 = actorVarArr[actor2_num];    //select second actor
+					if (actor1_num != actor2_num)
 						new NotEquals(net, actor1, actor2);	   //Separate actors		
 				sepConstraints_num--;
 			}
