@@ -45,8 +45,8 @@ public class CSPSolver {
 			System.out.println("time = " + time);
 		    System.out.println("Found " + count + " solutions in " + time + " milli seconds");
 			
-			System.out.println("# Problem");
-			System.out.println(net);
+			//System.out.println("# Problem");
+			//System.out.println(net);
 			System.out.println();
 		}
 
@@ -70,39 +70,6 @@ public class CSPSolver {
 			return constraints_map;
 		}
 		
-		public static void main26(String[] args) {
-			Network net = new Network();	
-			int nodeNum = 70;		
-			// call drawPairs
-			int n = 300;   // actor number
-			int max_constraints =100;    // constraints number
-			HashMap<Integer, Integer> map= generateConstraints(n, max_constraints);
-			int NUMBER = 100;  // the number of actors
-			int count =0;
-			 IntVariable[] key = new IntVariable[map.size()];;
-			   IntVariable[] val = new IntVariable[map.size()];;
-			   int k=0;
-			for(Map.Entry<Integer, Integer> entry : map.entrySet()){
-			    //System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
-			   key[k] =  new IntVariable(net, 1, nodeNum, entry.getKey().toString());
-			   val[k] =  new IntVariable(net, 1, nodeNum, entry.getValue().toString());
-			  
-			    k++;
-			    count++;
-			}
-			
-		    new NotEquals(net,  key );
-		    new NotEquals(net,  val );
-			
-			for(int i=0; i< count; i++) {
-				  key[i].notEquals(val[i]);
-			}
-			//Separate Constraint List
-			//Collocate constraints list.
-			System.out.println("k= " + k);		
-			System.out.println("Constraints Number= " + count);		
-			runExample(net); //output the result.
-		}
 		
 		public static void main11(String[] args) {
 			Network net = new Network();		
@@ -228,6 +195,8 @@ public class CSPSolver {
 			Network net = new Network();	
 			int nodeNum = 55;		
 			int NUMBER = 100;  // the number of actors
+			
+			
 			String[] actorList = new String[NUMBER];
 			   IntVariable[] actorVarArr = new IntVariable[NUMBER];
 			for(int i=0; i< NUMBER; i++) {
@@ -235,33 +204,37 @@ public class CSPSolver {
 				actorVarArr[i] = new IntVariable(net, 1, nodeNum, actorList[i]);
 			   net.add(actorVarArr[i]);
 			}
-				
-			int count =0;
-			int countOfConstraints =0;
-			//Separate Constraint List
-			for(int i=0 ;i < 10; i++) {
-				for(int j=i+1 ; j < 20; j++) {
-					new NotEquals(net,actorVarArr[i], actorVarArr[j] );
-					countOfConstraints++;
-				}
-				
+			int actors_num = NUMBER;
+			int constraints_num = 10;
+			
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			for(int i =0; i< actors_num; i++) {
+				list.add(i);
 			}
-			//Collocate constraints list.
-			for(int i=20 ;i < 50; i++) {
-				for(int j=i+1 ; j < 50; j++) {				
-					//new NotEquals(net,actorVarArr[i], actorVarArr[j] );
-					actorVarArr[i].equals(actorVarArr[j]); 
-					countOfConstraints++;
-				}
+			
+			Variable actor1 , actor2, actor3, actor4;
+			Random rand = new Random();
+			int sepConstraints_num = constraints_num;
+			while( sepConstraints_num >0) {
+
+					actor1 =actorVarArr[ rand.nextInt(list.size())]; // select one actor 				       
+					actor2 = actorVarArr[rand.nextInt(list.size())];    //select second actor
+					if (actor1 != actor2)
+						new NotEquals(net, actor1, actor2);				
+				sepConstraints_num--;
 			}
-			//Collocate constraints list.
-			for(int i=50 ;i < NUMBER; i++) {
-				for(int j=i+1 ; j < NUMBER-1; j++) {				
-					new NotEquals(net,actorVarArr[i], actorVarArr[j] );
-						countOfConstraints++;
-				}
+	//	
+	     	int colConstraints_num = constraints_num;
+			while( colConstraints_num >0) {
+	
+					actor3 =actorVarArr[ rand.nextInt(list.size())]; // select third actor 	
+					actor4 = actorVarArr[rand.nextInt(list.size())];    //select  forth actor
+					System.out.println(actor3+ ", " + actor4);
+					if (actor4 != actor3)						
+						actor3.equals(actor4);			
+				colConstraints_num--;
 			}
-			System.out.println("Constraints Number= " + countOfConstraints);		
+//			System.out.println("Constraints Number= " + countOfConstraints);		
 			runExample(net); //output the result.
 		}
 		
