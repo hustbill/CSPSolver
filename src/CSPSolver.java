@@ -70,6 +70,18 @@ public class CSPSolver {
 			return constraints_map;
 		}
 		
+		/**
+		 *  check the conflict between two HashMaps- separate map and collocate map
+		 */
+
+		 public void checkConflict( Map<Integer, Integer> ht, Map<Integer, Integer> ht2) {
+			 
+			    for (Map.Entry<Integer, Integer> htEntries : ht.entrySet()) {
+			        if(ht2.containsKey(htEntries.getKey()) && ht2.get(htEntries.getKey()).equals(htEntries.getValue())){
+			            System.out.println("\tKey: " + htEntries.getKey() + " Value: " + htEntries.getValue());
+			        }
+			    }		 
+		 }
 		
 		
 		public static void main(String[] args) {
