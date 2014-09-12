@@ -194,18 +194,19 @@ public class CSPSolver {
 		public static void main(String[] args) {
 			Network net = new Network();	
 			int nodeNum = 55;		
-			int NUMBER = 100;  // the number of actors
+			int actors_num = 100;  // the number of actors
+			int constraints_num = 10;
 			
 			
-			String[] actorList = new String[NUMBER];
-			   IntVariable[] actorVarArr = new IntVariable[NUMBER];
-			for(int i=0; i< NUMBER; i++) {
+			String[] actorList = new String[actors_num];
+			   IntVariable[] actorVarArr = new IntVariable[actors_num];
+			for(int i=0; i< actors_num; i++) {
 				actorList[i] = "actor" + i ;
 				actorVarArr[i] = new IntVariable(net, 1, nodeNum, actorList[i]);
 			   net.add(actorVarArr[i]);
 			}
-			int actors_num = NUMBER;
-			int constraints_num = 10;
+			
+		
 			
 			ArrayList<Integer> list = new ArrayList<Integer>();
 			for(int i =0; i< actors_num; i++) {
