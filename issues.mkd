@@ -1,0 +1,8 @@
+
+## Completed issues ##
+--**[1]** -- check the equal constraints on the constraints map
+
+
+
+## Open issues ###
+
