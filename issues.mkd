@@ -1,6 +1,6 @@
 
 ## Completed issues ##
---**[1]** -- check the equal contraints on the constraints map
+--**[1]** -- check the equal constraints on the constraints map
 
 
 
