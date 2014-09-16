@@ -6,6 +6,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.List;
+import java.io.File;
+import java.io.PrintStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class CSPSolver {
 	static int nodes = 5;
@@ -185,21 +195,83 @@ public class CSPSolver {
 		}
 	}
 
+	public static int[][] readXml(String filename) {
+		int[][] data = new int[100][5];
+		final String dir = System.getProperty("user.dir");
+		System.out.println("current dir = " + dir);
+
+		try {
+			File file = new File(dir + "//" + filename); //testCases.xml
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(file);
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element "
+					+ doc.getDocumentElement().getNodeName());
+			NodeList nodeLst = doc.getElementsByTagName("case");
+
+			System.out.println("Information of all test cases");
+
+			for (int s = 0; s < nodeLst.getLength(); s++) {
+
+				Node fstNode = nodeLst.item(s);
+
+				if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+
+					Element element = (Element) fstNode;
+					data[s][0] = Integer.parseInt(getValue("nodes", element));
+					//System.out.println("nodes: " +  data[s][0] );
+					data[s][1] = Integer.parseInt(getValue("actors", element));
+					//System.out.println("actors: " +  data[s][1] );
+					//sepConstraints
+					data[s][2] = Integer.parseInt(getValue("sepConstraints", element));
+					//System.out.println("sepConstraints: " +  data[s][2] );
+					//colConstraints
+					data[s][3] = Integer.parseInt(getValue("colConstraints", element));
+					//System.out.println("colConstraints: " +  data[s][3] );
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	private static String getValue(String tag, Element element) {
+		NodeList nodes = element.getElementsByTagName(tag).item(0)
+				.getChildNodes();
+		Node node = (Node) nodes.item(0);
+		return node.getNodeValue();
+	}
+
 	public static void main(String[] args) {
 		Network net = new Network();
 		int nodes_num = 3;
 		int actors_num = 20; // the number of actors
 
 		int sep_Constraints = 10;
-		int col_Constrasints= 10;
-		
-		if(args !=null) {
-			nodes_num = Integer.parseInt(args[0]);
-			actors_num = Integer.parseInt(args[1]);
-			sep_Constraints = Integer.parseInt(args[2]);
-			col_Constrasints = Integer.parseInt(args[3]);
+		int col_Constrasints = 10;
+
+		int[][] data = new int[100][5];
+		if (args != null) {
+			data= readXml(args[0]);  //args[0] = testCases.xml;
+			// nodes_num = Integer.parseInt(args[0]);
+			// actors_num = Integer.parseInt(args[1]);
+			// sep_Constraints = Integer.parseInt(args[2]);
+			// col_Constrasints = Integer.parseInt(args[3]);
 		}
+
 		
+		for(int k=0; k< 6 ; k++) {
+			
+			nodes_num =data[k][0];
+			actors_num = data[k][1];
+			sep_Constraints = data[k][2];
+			col_Constrasints = data[k][3];
+		
+		/* open data.txt and read parameters: nodes, actors, constraints */
+
 		Map<Integer, String> separateMap = new HashMap<Integer, String>();
 		Map<Integer, String> collocateMap = new HashMap<Integer, String>();
 
@@ -217,7 +289,7 @@ public class CSPSolver {
 		Variable actor1, actor2, actor3, actor4;
 		int actor1_num;
 		int actor2_num, actor3_num, actor4_num;
-		System.out.println("\n Seperate actors!");
+		//System.out.println("\n Seperate actors!");
 		for (Map.Entry<Integer, String> htEntries : separateMap.entrySet()) {
 			String[] actors = htEntries.getValue().split(",");
 			actor1_num = Integer.parseInt(actors[0]);
@@ -225,9 +297,9 @@ public class CSPSolver {
 			actor1 = actorVarArr[actor1_num]; // select one actor
 			actor2 = actorVarArr[actor2_num]; // select second actor
 			new NotEquals(net, actor1, actor2); // Separate actors
-			System.out.println("<" + actor1 + ", " + actor2 + ">");
+			//System.out.println("<" + actor1 + ", " + actor2 + ">");
 		}
-		System.out.println("\n Collocate actors!");
+		//System.out.println("\n Collocate actors!");
 		for (Map.Entry<Integer, String> htEntries : collocateMap.entrySet()) {
 			String[] actors = htEntries.getValue().split(",");
 			actor3_num = Integer.parseInt(actors[0]);
@@ -235,12 +307,16 @@ public class CSPSolver {
 			actor3 = actorVarArr[actor3_num]; // select one actor
 			actor4 = actorVarArr[actor4_num]; // select second actor
 			new NotEquals(net, actor3, actor4); // Collocate actors
-			System.out.println("<" + actor3 + ", " + actor4 + ">");
+			//System.out.println("<" + actor3 + ", " + actor4 + ">");
 		}
+		
+		System.out.println("nodes_num = " + nodes_num);		
+		System.out.println("actors_num = " + actors_num);		
 		System.out.println("Seperate Constraints = " + separateMap.size());
 		System.out.println("Collocate Constraints = " + collocateMap.size());
 		System.out.println("Total Constraints = "
 				+ (separateMap.size() + collocateMap.size()));
 		runExample(net); // output the result.
+	  }
 	}
 }
