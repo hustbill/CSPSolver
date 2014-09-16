@@ -260,6 +260,8 @@ public class CSPSolver {
 			// actors_num = Integer.parseInt(args[1]);
 			// sep_Constraints = Integer.parseInt(args[2]);
 			// col_Constrasints = Integer.parseInt(args[3]);
+		} else{
+			data = readXml("testCases.xml");
 		}
 
 		
